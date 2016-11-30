@@ -21,6 +21,7 @@ import javafx.beans.property.StringProperty;
 
 public class Person_Test {
 		
+	
 	private static PersonDomainModel person1;
 	private static UUID person1UUID = UUID.randomUUID();			
 	
