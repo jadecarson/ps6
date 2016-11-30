@@ -51,6 +51,65 @@ public class Person_Test {
 		
 	}
 	
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+	}
 	
+	@Before
+	public void setUp() throws Exception {
+	}
+	
+	@After
+	public void tearDown() throws Exception {
+		PersonDomainModel person;	
+		PersonDAL.deletePerson(person1.getPersonID());
+		person = PersonDAL.getPerson(person1.getPersonID());
+		assertNull("He/she shouldnt have been in here",person);		
+	}
+
+	@Test
+	public void AddPersonTest()
+	{		
+		PersonDomainModel person;		
+		person = PersonDAL.getPerson(person1.getPersonID());		
+		assertNull("He/she shouldnt have been in here",person);		
+		PersonDAL.addPerson(person1);		
+
+		person = PersonDAL.getPerson(person1.getPersonID());
+		System.out.println(person1.getPersonID() + " found");
+		assertNotNull("he/she should have been added",person);
+
+	}
+
+	@Test
+	public void UpdatePersonTest()
+	{		
+		PersonDomainModel person;
+		final String Lastname = "Post";
+		person = PersonDAL.getPerson(person1.getPersonID());		
+		assertNull("he/she should not have been added",person);		
+		PersonDAL.addPerson(person1);	
+		person1.setLastName(Lastname);
+		PersonDAL.updatePerson(person1);
+		person = PersonDAL.getPerson(person1.getPersonID());
+		assertTrue("her name did not change",person1.getLastName() == Lastname);
+	}
+
+	@Test
+	public void DeletePersonTest()
+	{		
+		PersonDomainModel person;		
+		person = PersonDAL.getPerson(person1.getPersonID());		
+		assertNull("he/she should not be here",person);	
+		PersonDAL.addPerson(person1);			
+		person = PersonDAL.getPerson(person1.getPersonID());
+		System.out.println(person1.getPersonID() + " found");
+		assertNotNull("he/she should have been added",person);
+		PersonDAL.deletePerson(person1.getPersonID());
+		person = PersonDAL.getPerson(person1.getPersonID());		
+		assertNull("he/she shouldnt have been added",person);	
+
+	}
+
 
 }
